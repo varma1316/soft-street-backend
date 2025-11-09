@@ -49,7 +49,7 @@ try {
     $mail->addAddress($email);  
     $mail->isHTML(true);                                     
     $mail->Subject = 'Subscription Confirmation';
-    $mail->Body    = '<h1>Thank You for Subscribing!</h1><p>You have successfully subscribed to our newsletter.</p>';
+    $mail->Body    = '<h1>Thank You for Subscribing!</h1><p>You have successfully subscribed to our newsletter. we will have few changes</p>';
    
 
     $mail->send();
