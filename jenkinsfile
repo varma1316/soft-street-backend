@@ -1,0 +1,37 @@
+pipeline {
+    agent any
+    
+    environment {
+        DOCKERHUB_USER = "varma8k8k"
+        IMAGE_NAME = "soft-street"
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git url: 'https://github.com/varma1316/soft-street-backend', branch: 'master'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                sh 'docker build -t $DOCKERHUB_USER/$IMAGE_NAME:${BUILD_NUMBER} .'
+            }
+        }
+
+        stage('Login to Docker Hub') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                    sh 'echo $PASSWORD | docker login -u $USERNAME --password-stdin'
+                }
+            }
+        }
+
+        stage('Push Image to Docker Hub') {
+            steps {
+                sh 'docker push $DOCKERHUB_USER/$IMAGE_NAME:${BUILD_NUMBER}'
+            }
+        }
+
+    }
+}
