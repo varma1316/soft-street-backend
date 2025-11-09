@@ -53,7 +53,7 @@ try {
    
 
     $mail->send();
-    echo json_encode(["message" => "Email has been sent"]);
+    echo json_encode(["message" => "Email has been sent. You can check yours"]);
 
 } catch (Exception $e) {
     echo "Email could not be sent. Mailer Error 1: {$mail->ErrorInfo}";
